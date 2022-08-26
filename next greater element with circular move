@@ -1,0 +1,45 @@
+class Solution {
+    public int[] nextGreaterElements(int[] nums) {
+        int n=nums.length;
+        
+        Stack<Integer> st=new Stack<>();
+        List<Integer> list=new ArrayList<>();
+        for(int i=2*n-1;i>=0;i--)
+        {
+
+            while(st.size()>0 && st.peek()<=nums[i%n])
+            {
+                st.pop();
+            }
+
+              if(i<n)
+              {
+                if(st.isEmpty())
+                {
+                    list.add(-1);
+                    
+                }
+                else
+                {
+                    list.add(st.peek());
+                }
+                
+              }
+                
+                    
+            
+         st.push(nums[i%n]);
+
+        
+        }
+        System.out.println(list);
+        int ans[]=new int[list.size()];
+        int k=0;
+        for(int i=list.size()-1;i>=0;i--)
+        {
+            ans[k++]=list.get(i);
+        }
+        return ans;
+        
+    }
+}
