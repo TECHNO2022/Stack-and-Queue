@@ -1,0 +1,59 @@
+//We are given an array asteroids of integers representing asteroids in a row.
+
+//For each asteroid, the absolute value represents its size, and the sign represents its direction (positive meaning right, negative meaning left). Each asteroid moves at the same speed.
+
+//Find out the state of the asteroids after all collisions. If two asteroids meet, the smaller one will explode. If both are the same size, both will explode. Two asteroids moving in the same direction will never meet.
+
+
+class Solution {
+    public int[] asteroidCollision(int[] a) {
+        
+        Stack<Integer> s=new Stack<>();
+        for(int i=0;i<a.length;i++)
+        {
+            if(a[i]>0)
+            {
+                s.push(a[i]);
+            }
+            else
+            {
+            while(s.size()>0 && s.peek()>0 && -a[i]>s.peek())
+            {
+                s.pop();
+            }
+
+            if(s.size()>0 && s.peek() >0 && -a[i]==s.peek())
+            {
+               s.pop(); 
+            }
+                
+           else if(s.size()>0 && s.peek()>0 &&  -a[i]<s.peek())
+            {
+                continue;
+            }
+            
+            else
+            {
+                s.push(a[i]);
+            }
+        }
+        }
+        List<Integer> list=new ArrayList<>();
+    
+        Iterator it=s.iterator();
+        
+        while(it.hasNext())
+        {
+            list.add((int)it.next());
+        }
+        int b[]=new int[list.size()];
+       int k=0; 
+    for(int i=0;i<list.size();i++)
+    {
+      b[k++]=list.get(i);
+    }
+        return b;
+    }
+}
+
+
