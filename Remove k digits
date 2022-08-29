@@ -1,0 +1,49 @@
+//Given string num representing a non-negative integer num, and an integer k, return the smallest possible integer after removing k digits from num.
+
+
+class Solution {
+    public String removeKdigits(String num, int k) {
+        
+        
+        Stack<Integer> s=new Stack<>();
+        for(int i=0;i<num.length();i++)
+        {
+            char ch=num.charAt(i);
+            
+            int x=ch-'0';
+            while(s.size()>0 && s.peek()>x && k>0)
+            {
+                s.pop();
+                k--;
+            }
+            s.push(x);
+            
+        }
+            while(s.size()>0 && k>0)
+            {
+                s.pop();
+                k--;
+            }
+        
+
+        if(s.isEmpty())
+            return "0";
+            
+            String v="";
+            Iterator it=s.iterator();
+            while(it.hasNext())
+            {  
+                v=v+(String.valueOf(it.next()));
+            }
+        String res="";
+        
+            for(int i=0;i<v.length();i++){
+             
+            if(v.charAt(i)!='0'){
+                 res = v.substring(i);
+                return res;
+            }
+            }
+        return "0";
+    }
+}
