@@ -1,0 +1,25 @@
+class GfG{
+	public Stack<Integer> sort(Stack<Integer> s)
+	{
+		Stack<Integer> s2=new Stack<>();
+		
+        while(s.size()>0)
+        {
+           int x=s.pop();
+           
+           while(s2.size()>0 && x<s2.peek())
+           {
+              s.push(s2.pop()); 
+           }
+            
+            s2.push(x);
+        }
+
+	return s2;	
+		
+		
+		
+	}
+}
+
+//3,2,1
