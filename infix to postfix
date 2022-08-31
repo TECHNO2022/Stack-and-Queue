@@ -1,0 +1,70 @@
+
+class Solution {
+    // Function to convert an infix expression to a postfix expression.
+    
+    public static int prec(char ch)
+    {
+        if(ch=='^')
+        return 3;
+        if(ch=='*' || ch=='/')
+        return 2;
+        if(ch=='+' || ch=='-')
+        return 1;
+        return -1;
+        
+    }
+    public static String infixToPostfix(String exp) {
+        String ans="";
+        
+        Stack<Character> stack=new Stack<>();
+        
+        for(int i=0;i<exp.length();i++)
+        {
+            char ch=exp.charAt(i);
+            
+            if((ch>='a' && ch<='z') || (ch>='A' && ch<='Z'))
+            ans=ans+ch;
+            
+           else if(ch=='(')
+            stack.push('(');
+           else if(ch==')')
+            {
+                while(stack.size()>0 && stack.peek()!='(')
+                {
+                   ans+=stack.pop();
+                }
+                stack.pop();
+            }
+            else
+            {
+                if(stack.isEmpty())
+                {
+                    stack.push(ch);
+                }
+                else
+                {
+                    if(prec(ch)>prec(stack.peek()))
+                    {
+                        stack.push(ch);
+                    }
+                    else
+                    {
+                        while(stack.size()>0 && prec(ch)<=prec(stack.peek()))
+                        {
+                            ans=ans+stack.pop();
+                        }
+                        stack.push(ch);
+                    }
+                }
+            }
+        }
+            
+            while(stack.size()>0)
+            {
+                ans=ans+stack.pop();
+            }
+            return ans;
+            
+        
+    }
+}
